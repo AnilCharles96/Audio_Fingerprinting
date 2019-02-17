@@ -2,12 +2,11 @@ import argparse
 import sys
 from Database import Database
 from fingerprint import Fingerprint
+from recognize import Recognize
 import os
 import time
 import progressbar
-#from fingerprint import Fingeprint
-#import os
-#from scipy.io import wavfile
+
 
 
 
@@ -36,7 +35,16 @@ if __name__ == '__main__':
         dbobject = Database(hostname=hostname,user=user,passwd=passwd)
         
         if args.fingerprint:
-        
+            
+            
+            if args.recognize:
+                print('either do fingerprinting or recognizing')
+                sys.exit(0)
+             
+            dbobject.drop_hash_table()
+            dbobject.drop_song_table()            
+            dbobject.create_tables()
+            
         #print(args.fingerprint)
             fobject = Fingerprint(args.fingerprint)
             a = fobject.fo
@@ -63,20 +71,21 @@ if __name__ == '__main__':
                 store_hash_length += len(store_hash[i])
             
             bar = progressbar.ProgressBar(max_value=store_hash_length)
-            print('\nkeep calm and let the fingeprinting happen\n')
+            print('\storing fingerprints in database')
             iterate = 0
             for i in range(count):
                 for j in range(len(store_hash[i])):                        
                     dbobject.insert_values_into_hash_table(i+1,store_hash[i][j])
                     iterate += 1
                     time.sleep(0.1)                   
-                    bar.update(iterate)                 
+                    bar.update(iterate)    
+            print('\nfinished storing')
             
            # print(store_hash)
             
         elif args.recognize:
-            # under construction
-            pass
+            robject = Recognize()
+            robject.identify(dbobject)
         
         else:
             print('\nplease perform fingerprinting once, if you have already done it then perform recognize to identify songs\n')
@@ -90,6 +99,19 @@ if __name__ == '__main__':
 
      
     
+
+
+ #config = 'localhost,root,helloworld'
+ #config = config.split(',')
+# hostname = config[0]
+# user = config[1]
+# passwd = config[2]    
+        
+# dbobject = Database(host='hostname',user='root',passwd='helloworld')
+
+
+
+
 
 
 
