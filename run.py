@@ -101,16 +101,6 @@ if __name__ == '__main__':
     
 
 
- #config = 'localhost,root,helloworld'
- #config = config.split(',')
-# hostname = config[0]
-# user = config[1]
-# passwd = config[2]    
-        
-# dbobject = Database(host='hostname',user='root',passwd='helloworld')
-
-
-
 
 
 
