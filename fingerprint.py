@@ -78,7 +78,7 @@ class Fingerprint():
         
     def fingerprint_folder(self):
         
-        # https://github.com/worldveil/dejavu/blob/master/dejavu/fingerprint.py
+       
         bar = progressbar.ProgressBar(max_value=progressbar.UnknownLength)
         print('\nproducing fingerprints please wait')
         dict = {}
@@ -98,7 +98,8 @@ class Fingerprint():
         return (dict,self.local_maxima_list)
                 
     def fingerprint_operation(self,signal_data,sampling_frequency):
-
+        
+         # https://github.com/worldveil/dejavu/blob/master/dejavu/fingerprint.py
         a = signal_data[:,0]
         arr = np.array(a)
         plt.ioff()
